@@ -22,7 +22,7 @@ Buy-and-sell app for a single campus: listings with photos, categories, search, 
 
 ```
 git clone <your-repo-url>
-cd 1923050043_TranMinhQuang_Project
+cd 1923050043-TranMinhQuang-Campus_Marketplace
 npm install
 npx expo start
 
