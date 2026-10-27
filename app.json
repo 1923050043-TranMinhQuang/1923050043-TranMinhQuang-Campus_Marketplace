@@ -1,14 +1,19 @@
 {
   "expo": {
-    "name": "1923050043_TranMinhQuang_Project",
+    "name": "Campus Marketplace",
     "slug": "1923050043_TranMinhQuang_Project",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "1923050043tranminhquangproject",
+    "scheme": "campusmarketplace",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Take a photo for your campus listing.",
+        "NSPhotoLibraryUsageDescription": "Pick a photo for your campus listing.",
+        "NSMicrophoneUsageDescription": "Allow microphone access only if needed while capturing listing media."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -17,11 +22,16 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
+      "permissions": [
+        "CAMERA",
+        "READ_MEDIA_IMAGES",
+        "POST_NOTIFICATIONS"
+      ],
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "bundler": "metro",
-      "output": "server",
+      "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
@@ -31,7 +41,21 @@
         {
           "image": "./assets/images/splash-icon.png",
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#F7F4EF"
+        }
+      ],
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Campus Marketplace to access your photos for listings.",
+          "cameraPermission": "Allow Campus Marketplace to use your camera for listings."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#0B6E4F"
         }
       ]
     ],

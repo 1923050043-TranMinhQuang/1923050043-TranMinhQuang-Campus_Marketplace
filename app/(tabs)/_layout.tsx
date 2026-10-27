@@ -1,66 +1,87 @@
+import { Tabs } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
-import { Link, Tabs } from 'expo-router';
-import { Platform, Pressable } from 'react-native';
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { useColorScheme } from '@/components/useColorScheme';
+import { tokens } from '@/constants/tokens';
+import { selectCartCount, useCartStore } from '@/stores/cartStore';
+import { selectFavouriteIds, useFavouritesStore } from '@/stores/favouritesStore';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const t = tokens[colorScheme === 'dark' ? 'dark' : 'light'];
+  const cartCount = useCartStore(selectCartCount);
+  const favCount = useFavouritesStore(selectFavouriteIds).length;
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
+        tabBarActiveTintColor: t.tabIconSelected,
+        tabBarInactiveTintColor: t.tabIconDefault,
+        tabBarStyle: { backgroundColor: t.surface, borderTopColor: t.border },
+        headerStyle: { backgroundColor: t.surface },
+        headerTintColor: t.text,
         headerShown: useClientOnlyValue(false, true),
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
+          title: 'Khám phá',
+          tabBarAccessibilityLabel: 'Khám phá danh sách sản phẩm',
           tabBarIcon: ({ color }) => (
             <SymbolView
-              name={{
-                ios: 'chevron.left.forwardslash.chevron.right',
-                android: 'code',
-                web: 'code',
-              }}
+              name={{ ios: 'storefront', android: 'store', web: 'store' }}
               tintColor={color}
-              size={28}
+              size={26}
             />
-          ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable style={{ marginRight: 15 }}>
-                {({ pressed }) => (
-                  <SymbolView
-                    name={{ ios: 'info.circle', android: 'info', web: 'info' }}
-                    size={25}
-                    tintColor={Colors[colorScheme].text}
-                    style={{ opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="favourites"
         options={{
-          title: 'Tab Two',
+          title: 'Yêu thích',
+          tabBarAccessibilityLabel: `Danh sách yêu thích, ${favCount} sản phẩm`,
+          tabBarBadge: favCount > 0 ? favCount : undefined,
+          tabBarIcon: ({ color }) => (
+            <SymbolView
+              name={{ ios: 'heart', android: 'favorite', web: 'favorite' }}
+              tintColor={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="cart"
+        options={{
+          title: 'Giỏ hàng',
+          tabBarAccessibilityLabel: `Giỏ hàng, ${cartCount} sản phẩm`,
+          tabBarBadge: cartCount > 0 ? cartCount : undefined,
           tabBarIcon: ({ color }) => (
             <SymbolView
               name={{
-                ios: 'chevron.left.forwardslash.chevron.right',
-                android: 'code',
-                web: 'code',
+                ios: 'cart',
+                android: 'shopping_cart',
+                web: 'shopping_cart',
               }}
               tintColor={color}
-              size={28}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="account"
+        options={{
+          title: 'Tài khoản',
+          tabBarAccessibilityLabel: 'Tài khoản cá nhân',
+          tabBarIcon: ({ color }) => (
+            <SymbolView
+              name={{ ios: 'person', android: 'person', web: 'person' }}
+              tintColor={color}
+              size={26}
             />
           ),
         }}

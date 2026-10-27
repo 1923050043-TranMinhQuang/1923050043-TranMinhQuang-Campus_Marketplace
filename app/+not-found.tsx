@@ -1,17 +1,28 @@
 import { Link, Stack } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { Text, View } from '@/components/Themed';
+import { useThemeTokens } from '@/hooks/useThemeTokens';
 
 export default function NotFoundScreen() {
+  const t = useThemeTokens();
+
   return (
     <>
-      <Stack.Screen options={{ title: 'Oops!' }} />
-      <View style={styles.container}>
-        <Text style={styles.title}>This screen doesn't exist.</Text>
-
-        <Link href="/" style={styles.link}>
-          <Text style={styles.linkText}>Go to home screen!</Text>
+      <Stack.Screen options={{ title: 'Rất tiếc!' }} />
+      <View style={[styles.container, { backgroundColor: t.background }]}>
+        <Text style={[styles.title, { color: t.text }]}>Không tìm thấy trang</Text>
+        <Text style={{ color: t.textSecondary, textAlign: 'center' }}>
+          Đường dẫn này không tồn tại. Hãy quay lại danh mục sản phẩm của trường.
+        </Text>
+        <Link
+          href="/"
+          style={styles.link}
+          accessibilityRole="link"
+          accessibilityLabel="Quay về trang khám phá"
+        >
+          <Text style={{ color: t.tint, fontWeight: '700', fontSize: 16 }}>
+            Về trang Khám phá
+          </Text>
         </Link>
       </View>
     </>
@@ -23,18 +34,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    padding: 24,
+    gap: 12,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    fontWeight: '800',
   },
   link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+    marginTop: 12,
+    minHeight: 44,
+    justifyContent: 'center',
   },
 });
