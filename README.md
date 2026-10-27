@@ -21,7 +21,7 @@ Buy-and-sell app for a single campus: listings with photos, categories, search, 
 ## Run from a clean machine
 
 ```
-git clone <your-repo-url>
+git clone (https://github.com/1923050043-TranMinhQuang/1923050043-TranMinhQuang-Campus_Marketplace.git)
 cd 1923050043-TranMinhQuang-Campus_Marketplace
 npm install
 npx expo start
